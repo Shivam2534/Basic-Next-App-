@@ -25,7 +25,7 @@ function LoginPage() {
       router.push("/profile");
     } catch (error) {
       console.error("Error while login from frontend:", error);
-      toast.error("Login Error");
+      toast.error("User not registered");
     } finally {
       setLoading(false);
     }

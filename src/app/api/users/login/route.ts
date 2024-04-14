@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return NextResponse.json({
+      throw NextResponse.json({
         message: "User Not Registerd | user not exist",
         status: 400,
       });
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     const isPasswordCorrect = await bcryptjs.compare(password, user.password);
     if (!isPasswordCorrect) {
-      return NextResponse.json({
+      throw NextResponse.json({
         message: "Wrong Credentials",
         status: 401,
       });
@@ -51,9 +51,9 @@ export async function POST(req: NextRequest) {
 
     return response;
   } catch (error: any) {
-    console.log("Error in login")
-    return NextResponse.json({
-      error: error.message,
+    console.log("Error in login");
+    throw NextResponse.json({
+      error: error,
       status: 500,
     });
   }
